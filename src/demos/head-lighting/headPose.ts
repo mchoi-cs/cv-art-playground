@@ -66,7 +66,7 @@ export class HeadPoseDriver {
 
   /** Advances the smoothing and returns the rotation to apply to the head. */
   tick(deltaSeconds: number): Quaternion {
-    return this.smoother.update(this.target.clone(), deltaSeconds);
+    return this.smoother.update(this.target, deltaSeconds);
   }
 
   reset(): void {
