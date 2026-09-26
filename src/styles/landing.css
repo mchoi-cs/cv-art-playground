@@ -1,0 +1,117 @@
+body {
+  background:
+    radial-gradient(1100px 620px at 12% -12%, #24242f 0%, transparent 62%),
+    radial-gradient(900px 520px at 95% 8%, #1d2530 0%, transparent 58%), var(--bg);
+  min-height: 100%;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 8vh, 6rem) 1.5rem 4rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.masthead h1 {
+  font-size: clamp(2.3rem, 6vw, 3.2rem);
+  line-height: 1.05;
+}
+
+.lede {
+  margin: 1rem 0 0;
+  max-width: 54ch;
+  color: var(--ink-dim);
+  font-size: 1.02rem;
+}
+
+.demo-list {
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.demo-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 60%), var(--surface);
+  overflow: hidden;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.demo-card:not(.demo-card--soon):hover {
+  border-color: #4a5468;
+  transform: translateY(-2px);
+}
+
+.demo-card__link {
+  display: block;
+  padding: 1.5rem 1.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.demo-card h2 {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 1.45rem;
+}
+
+.demo-card p {
+  margin: 0;
+  color: var(--ink-dim);
+  max-width: 58ch;
+}
+
+.demo-card__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+}
+
+.demo-card__badge--live {
+  color: var(--live);
+  border-color: rgba(127, 209, 168, 0.4);
+  background: rgba(127, 209, 168, 0.08);
+}
+
+.demo-card__cta {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.demo-card--soon {
+  opacity: 0.58;
+}
+
+.demo-card--soon .demo-card__cta {
+  color: var(--ink-faint);
+}
+
+.colophon {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-faint);
+  font-size: 0.86rem;
+}
+
+.colophon p {
+  margin: 0.35rem 0;
+}

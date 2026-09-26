@@ -1,0 +1,71 @@
+:root {
+  --ink: #ece8e1;
+  --ink-dim: #9aa2b0;
+  --ink-faint: #6b7381;
+  --bg: #0d0f13;
+  --surface: #171a21;
+  --surface-2: #1f232c;
+  --line: #2b303b;
+  --accent: #e8b06a;
+  --accent-soft: #f6d9ac;
+  --live: #7fd1a8;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --serif: ui-serif, Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Layout rules below set `display`, which would otherwise beat the UA's
+   [hidden] rule and leave "hidden" elements on screen. */
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--surface-2);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
