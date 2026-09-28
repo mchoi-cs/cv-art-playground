@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Head lighting study &middot; cv-art-playground</title>
+    <meta
+      name="description"
+      content="A planes-of-the-head bust that copies your head pose from the webcam, lit with classic portrait lighting setups."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%92%A1%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body class="demo-body">
+    <div class="layout">
+      <section class="stage">
+        <canvas id="view" class="stage__canvas"></canvas>
+
+        <a class="stage__back" href="../../">&larr; all demos</a>
+
+        <div id="message" class="message" hidden>
+          <h2 id="message-title" class="message__title"></h2>
+          <p id="message-body" class="message__body"></p>
+        </div>
+
+        <figure id="preview-wrap" class="preview" hidden>
+          <video id="preview" class="preview__video" playsinline muted></video>
+          <figcaption class="preview__caption">
+            <span id="preview-state">camera</span>
+            <button id="preview-hide" type="button" class="preview__hide">hide</button>
+          </figcaption>
+        </figure>
+
+        <p class="stage__hint">
+          Drag the glowing ball to move the light &middot; shift&#8209;drag anywhere to throw it
+          across &middot; drag elsewhere to orbit the camera &middot; drop a .glb to swap the head
+        </p>
+
+        <div id="drop-overlay" class="drop-overlay" hidden>Drop a .glb or .gltf head</div>
+      </section>
+
+      <aside class="panel">
+        <header class="panel__head">
+          <h1 class="panel__title">Head lighting study</h1>
+          <p class="panel__sub">
+            Hold a pose, then light it. Nothing is uploaded &mdash; tracking happens in this tab.
+          </p>
+        </header>
+
+        <section class="panel__section">
+          <h2 class="panel__heading">Tracking</h2>
+          <button id="camera-toggle" type="button" class="button button--primary">
+            Start camera
+          </button>
+          <p id="camera-status" class="status status--idle">
+            Camera off &mdash; idle sway running.
+          </p>
+
+          <label class="field field--check">
+            <input id="idle-motion" type="checkbox" checked />
+            <span>Idle sway when not tracking</span>
+          </label>
+          <label class="field field--check">
+            <input id="hold-pose" type="checkbox" />
+            <span>Hold pose (freeze the head)</span>
+          </label>
+          <label class="field field--check">
+            <input id="mirror" type="checkbox" checked />
+            <span>Mirror (selfie view)</span>
+          </label>
+          <label class="field field--check">
+            <input id="preview-show" type="checkbox" checked />
+            <span>Show camera preview</span>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Smoothing <output id="smoothing-out"></output></span>
+            <input id="smoothing" type="range" min="0" max="0.4" step="0.01" value="0.09" />
+          </label>
+
+          <p class="readout">
+            <span>yaw <b id="pose-yaw">0&deg;</b></span>
+            <span>pitch <b id="pose-pitch">0&deg;</b></span>
+            <span>roll <b id="pose-roll">0&deg;</b></span>
+          </p>
+        </section>
+
+        <section class="panel__section">
+          <h2 class="panel__heading">Lighting presets</h2>
+          <div id="presets" class="presets"></div>
+          <p id="preset-note" class="note"></p>
+        </section>
+
+        <section class="panel__section">
+          <h2 class="panel__heading">Key light</h2>
+          <label class="field">
+            <span class="field__label">Azimuth <output id="azimuth-out"></output></span>
+            <input id="azimuth" type="range" min="-180" max="180" step="1" />
+          </label>
+          <label class="field">
+            <span class="field__label">Elevation <output id="elevation-out"></output></span>
+            <input id="elevation" type="range" min="-89" max="89" step="1" />
+          </label>
+          <label class="field">
+            <span class="field__label">Distance <output id="distance-out"></output></span>
+            <input id="distance" type="range" min="1.6" max="6" step="0.05" />
+          </label>
+          <label class="field">
+            <span class="field__label">Intensity <output id="intensity-out"></output></span>
+            <input id="intensity" type="range" min="0" max="4" step="0.05" />
+          </label>
+          <label class="field">
+            <span class="field__label">Edge softness <output id="softness-out"></output></span>
+            <input id="softness" type="range" min="0" max="1" step="0.01" />
+          </label>
+          <label class="field field--inline">
+            <span class="field__label">Colour</span>
+            <input id="color" type="color" />
+          </label>
+          <label class="field">
+            <span class="field__label">Fill / bounce <output id="fill-out"></output></span>
+            <input id="fill" type="range" min="0" max="1" step="0.01" />
+          </label>
+          <label class="field">
+            <span class="field__label">Back kicker <output id="rim-out"></output></span>
+            <input id="rim" type="range" min="0" max="2" step="0.05" />
+          </label>
+        </section>
+
+        <section class="panel__section">
+          <h2 class="panel__heading">Surface &amp; studio</h2>
+          <label class="field field--check">
+            <input id="flat-shading" type="checkbox" checked />
+            <span>Flat shading (show the planes)</span>
+          </label>
+          <label class="field field--check">
+            <input id="edges" type="checkbox" />
+            <span>Draw plane breaks</span>
+          </label>
+          <label class="field field--check">
+            <input id="stand" type="checkbox" checked />
+            <span>Neck and plinth</span>
+          </label>
+          <label class="field field--check">
+            <input id="backdrop" type="checkbox" checked />
+            <span>Backdrop and floor</span>
+          </label>
+          <label class="field">
+            <span class="field__label">Exposure <output id="exposure-out"></output></span>
+            <input id="exposure" type="range" min="0.3" max="2" step="0.05" value="1" />
+          </label>
+          <button id="reset-view" type="button" class="button">Reset camera view</button>
+        </section>
+
+        <section class="panel__section">
+          <h2 class="panel__heading">Head model</h2>
+          <p class="note">
+            The built-in bust is a placeholder. Drop a <code>.glb</code> anywhere on the page, or
+            pick one below &mdash; it is read locally, never uploaded.
+          </p>
+          <p class="model-name">Now showing: <b id="model-name">Built-in planes head</b></p>
+          <label class="button button--file">
+            Choose a .glb / .gltf
+            <input
+              id="model-file"
+              type="file"
+              accept=".glb,.gltf,model/gltf-binary,model/gltf+json"
+            />
+          </label>
+          <button id="model-reset" type="button" class="button">Back to built-in head</button>
+        </section>
+      </aside>
+    </div>
+    <script type="module" src="/src/demos/head-lighting/main.ts"></script>
+  </body>
+</html>

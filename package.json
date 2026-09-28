@@ -1,0 +1,33 @@
+{
+  "name": "cv-art-playground",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Browser-based computer vision playground for artists: head-pose lighting study and (soon) hand-gesture animations.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "wasm:local": "node scripts/copy-mediapipe-wasm.mjs"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "1.0.1",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^26.6.3",
+    "@types/three": "^0.186.0",
+    "eslint": "^9.39.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.70.1",
+    "vite": "^8.3.0"
+  }
+}

@@ -1,0 +1,23 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+
+# Optional offline copy of the MediaPipe runtime (see npm run wasm:local)
+public/mediapipe
+
+# Head models you drop in locally - keep the repo free of third-party assets
+public/models/*
+!public/models/README.md
+
+# Editor directories
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
